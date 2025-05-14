@@ -14,7 +14,9 @@ Karena publisher mengirim banyak pesan dengan cepat, sementara subscriber hanya 
 
 Di mesinku sendiri, jumlahnya bisa berbeda tergantung kecepatan publish, durasi sleep, dan berapa kali publisher dijalankan. Jadi, saat kamu melihat antrean bisa mencapai 20 atau bahkan 73, itu wajar jika sleep menyebabkan bottleneck di sisi subscriber.
 
+![Image](https://github.com/user-attachments/assets/693d2081-f39e-4565-a436-adc48c813b84)
 
+Menambahkan tiga subscriber membuat pemrosesan pesan menjadi jauh lebih cepat karena beban kerja dibagi rata oleh RabbitMQ ke setiap subscriber yang aktif. Saat hanya satu subscriber berjalan, setiap pesan harus diproses satu per satu, sehingga terjadi penumpukan pesan dalam antrean, apalagi jika ada sleep dalam prosesnya. Dengan tiga subscriber, RabbitMQ dapat mendistribusikan pesan secara paralel, sehingga masing-masing subscriber hanya menangani sebagian dari total pesan. Ini mencegah penumpukan Unacked dan membuat antrean tetap kosong atau stabil. Secara otomatis, throughput sistem meningkat karena tiga subscriber bisa bekerja bersamaan tanpa saling menunggu. Ini menunjukkan bahwa sistem berbasis message queue seperti RabbitMQ sangat mendukung skalabilitas horizontal. Menambahkan subscriber adalah cara efektif untuk menangani beban yang tinggi tanpa perlu mengubah logika dasar aplikasi.
 
 
 
